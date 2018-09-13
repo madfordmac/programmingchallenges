@@ -20,8 +20,9 @@ def main():
 	parser = argparse.ArgumentParser(description="Determine the palindrome score of words.")
 	parser.add_argument('word', nargs='+', help="A word who's score should be calculated.")
 	args = parser.parse_args()
+	maxlen = max([len(w) for w in args.word])
 	for word in args.word:
-		print("{word:s}: {score[score]:3d}/{score[length]:3d}  ({score[ratio]:.1%})".format(word=word, score=almost_palindrome(word)))
+		print("{word:>{wlen:d}s}: {score[score]:3d}/{score[length]:3d}  ({score[ratio]:6.1%})".format(word=word, score=almost_palindrome(word), wlen=maxlen))
 
 if __name__ == '__main__':
 	main()
