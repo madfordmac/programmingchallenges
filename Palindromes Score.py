@@ -26,7 +26,7 @@ def almost_palindrome(str):
 
 def main():
 	parser = argparse.ArgumentParser(description="Determine the palindrome score of words.")
-	parser.add_argument('word', nargs='+', type=str, action=UniqueStringsAction, help="A word who's score should be calculated.")
+	parser.add_argument('word', nargs='+', type=str, action=UniqueStringsAction, help="A word whose score should be calculated.")
 	args = parser.parse_args()
 	maxlen = max([len(w) for w in args.word])
 	for word in args.word:
