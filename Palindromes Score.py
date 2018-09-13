@@ -2,8 +2,16 @@
 import sys
 import argparse
 
+class UniqueStringsAction(argparse.Action):
+	"""Adds arguments to a set instead of a list to guarantee uniqueness."""
+	def __init__(self, option_strings, dest, type=None, **kwargs):
+		super(UniqueStringsAction, self).__init__(option_strings, dest, type=str, **kwargs)
+
+	def __call__(self, parser, namespace, values, option_string=None):
+		setattr(namespace, self.dest, set([v.lower() for v in values]))
+
+
 def almost_palindrome(str):
-	str = str.upper()
 	if len(str) == 0:
 		raise ValueError("Palindrome score cannot be calculated on empy strings.")
 	score = 0
@@ -18,7 +26,7 @@ def almost_palindrome(str):
 
 def main():
 	parser = argparse.ArgumentParser(description="Determine the palindrome score of words.")
-	parser.add_argument('word', nargs='+', help="A word who's score should be calculated.")
+	parser.add_argument('word', nargs='+', type=str, action=UniqueStringsAction, help="A word who's score should be calculated.")
 	args = parser.parse_args()
 	maxlen = max([len(w) for w in args.word])
 	for word in args.word:
