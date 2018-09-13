@@ -17,8 +17,11 @@ def almost_palindrome(str):
 	}
 
 def main():
-	word = sys.argv[1]
-	print("{word:s}: {score[score]:3d}/{score[length]:3d}  ({score[ratio]:.1%})".format(word=word, score=almost_palindrome(word)))
+	parser = argparse.ArgumentParser(description="Determine the palindrome score of words.")
+	parser.add_argument('word', nargs='+', help="A word who's score should be calculated.")
+	args = parser.parse_args()
+	for word in args.word:
+		print("{word:s}: {score[score]:3d}/{score[length]:3d}  ({score[ratio]:.1%})".format(word=word, score=almost_palindrome(word)))
 
 if __name__ == '__main__':
 	main()
